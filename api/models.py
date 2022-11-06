@@ -19,4 +19,4 @@ class reqtaxi(models.Model):
     type_travel = models.CharField(max_length=15,choices=CHOICES_TYPE , help_text='Insert type of travel')
 
     def __str__(self):
-        return self.orig_addr  + '\t' + self.dest_addr + '\t' + str(self.travel_costs)
+        return f'{self.orig_addr }\t \t {self.dest_addr} \t \t {self.type_travel} \t \t {str(self.travel_costs)}' 

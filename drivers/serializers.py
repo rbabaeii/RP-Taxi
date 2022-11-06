@@ -1,5 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
+from api.models import reqtaxi
 from api.serializers import RequestListSerializer
 from .models import Driver_job
 
@@ -27,6 +28,7 @@ class Travel_serializer(ModelSerializer):
         fields = ('id' , 'body','time','finish','user')
 
 class Travelcreat_serializer(ModelSerializer):
+    body = serializers.PrimaryKeyRelatedField(queryset=reqtaxi.objects.filter(search_for_taxi=True))
     class Meta:
         model = Driver_job
         fields = ('id' , 'body','time','user')
