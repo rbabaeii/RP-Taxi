@@ -8,5 +8,5 @@ from django.utils import timezone
 class Driver_job(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.ForeignKey(reqtaxi , on_delete=models.CASCADE)
-    time = models.DateTimeField(auto_now_add=timezone.now)
+    time = models.DateTimeField( auto_now_add=timezone.now)
     finish = models.BooleanField(default=False)

@@ -54,3 +54,41 @@ class RequsetDeliveryDetail(RetrieveUpdateDestroyAPIView):
     queryset = reqtaxi.objects.filter(type_travel='Delivery')
     serializer_class = RequestSerializer
     permission_classes = (IsOwnerOrAuthentication,)
+
+
+
+# Truck Views
+class RequestTruckList(ListAPIView):
+    queryset = reqtaxi.objects.filter(type_travel='Truck')
+    serializer_class = RequestListSerializer
+    permission_classes = (IsSuperUserOrAuthentication,)
+
+
+class ActiveRequestTruck(ListCreateAPIView):
+    queryset = reqtaxi.objects.filter(type_travel = 'Truck',search_for_taxi = True)
+    serializer_class = RequestSerializer
+    permission_classes = (IsSuperUserOrAuthentication,)
+
+
+class RequestTruckDetail(RetrieveUpdateDestroyAPIView):
+    queryset = reqtaxi.objects.filter(type_travel ='Truck')
+    serializer_class = RequestSerializer
+    permission_classes = (IsOwnerOrAuthentication,)
+
+# Pickup_truck Views
+class RequestPickup_truckList(ListAPIView):
+    queryset = reqtaxi.objects.filter(type_travel='Pickup_truck')
+    serializer_class = RequestListSerializer
+    permission_classes = (IsSuperUserOrAuthentication,)
+
+
+class ActiveRequestPickup_truck(ListCreateAPIView):
+    queryset = reqtaxi.objects.filter(type_travel = 'Pickup_truck',search_for_taxi = True)
+    serializer_class = RequestSerializer
+    permission_classes = (IsSuperUserOrAuthentication,)
+
+
+class RequestPickup_truckDetail(RetrieveUpdateDestroyAPIView):
+    queryset = reqtaxi.objects.filter(type_travel ='Pickup_truck')
+    serializer_class = RequestSerializer
+    permission_classes = (IsOwnerOrAuthentication,)
