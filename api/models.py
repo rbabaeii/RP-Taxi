@@ -2,7 +2,7 @@ from django.db import models
 from Account.models import User
 
 # Create your models here.
-class reqtaxi(models.Model):
+class RequestCar(models.Model):
     CHOICES_TYPE = [
         ('Delivery', 'پیک'),
         ('Taxi', 'تاکسی'),

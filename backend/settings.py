@@ -45,8 +45,8 @@ INSTALLED_APPS = [
     "phonenumber_field",
     'django.contrib.sites',
     'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
     'dj_rest_auth.registration',
 
 

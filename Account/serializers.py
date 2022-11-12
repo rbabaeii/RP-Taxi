@@ -21,7 +21,8 @@ class CustomeRegisterSerilizer(RegisterSerializer):
             'Address': self.validated_data.get('Address'),
             'Age': self.validated_data.get('Age'),
             'gender': self.validated_data.get('gender'),
-            'is_driver': self.validated_data.get('is_driver')
+            'is_driver': self.validated_data.get('is_driver'),
+            'mellicode' : self.validated_data.get('mellicode')
         }
     def save(self,request):
         adapter = get_adapter()
@@ -32,6 +33,7 @@ class CustomeRegisterSerilizer(RegisterSerializer):
         user.Age = self.cleaned_data.get('Age')
         user.gender = self.cleaned_data.get('gender')
         user.is_driver = self.cleaned_data.get('is_driver')
+        user.mellicode = self.cleaned_data.get('mellicode')
         user.save()
         adapter.save_user(request , user , self)
         return user

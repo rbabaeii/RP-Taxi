@@ -7,6 +7,7 @@ from .views import (ActiveRequsetTaxi , RequestTaxiList , RequestTaxiDetail , Re
 app_name = "api"
 
 urlpatterns = [
+    # path('' , TravelPriceView.as_view()),
     path('taxi/all-requests/' , RequestTaxiList.as_view() , name='all-taxi'),
     path('taxi/active-requests/' , ActiveRequsetTaxi.as_view() , name='taxi-active'),
     path('taxi/<int:pk>/' , RequestTaxiDetail.as_view() , name = 'taxi-detail'),
