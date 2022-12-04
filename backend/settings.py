@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     "phonenumber_field",
     'django.contrib.sites',
     'allauth',
-    # 'allauth.account',
+    'allauth.account',
     # 'allauth.socialaccount',
     'dj_rest_auth.registration',
 
@@ -123,7 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa'
 
 TIME_ZONE = 'Asia/Tehran'
 
@@ -165,7 +165,7 @@ REST_FRAMEWORK = {
         ],
 
 
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ]    
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [
+    #     'rest_framework.authentication.TokenAuthentication',
+    # ]    
 }

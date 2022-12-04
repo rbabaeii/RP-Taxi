@@ -1,12 +1,13 @@
 
 from rest_framework.views import APIView
 from django.http import Http404
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
-from rest_framework.generics import ListCreateAPIView,RetrieveUpdateDestroyAPIView , ListAPIView  , mixins
-from .models import RequestCar
-from .serializers import RequestListSerializer , RequestSerializer , TravelPriceSerailizer
-from .permissions import IsOwnerOrAuthentication,IsSuperUserOrAuthentication
-
+from rest_framework.generics import ListCreateAPIView,RetrieveUpdateDestroyAPIView , ListAPIView  , CreateAPIView 
+from .models import RequestCar , TravelAddress
+from .serializers import RequestListSerializer , RequestSerializer , ListTravelAdressSerializer , CreateTravelAdressSerializer , UpdateTravelAddressSerializer
+from .permissions import IsOwnerOrAuthentication,IsSuperUserOrAuthentication , IsownerOrstaff
+from rest_framework import status
 
 # Taxi Views
 class RequestTaxiList(ListAPIView):
@@ -93,20 +94,35 @@ class RequestPickup_truckDetail(RetrieveUpdateDestroyAPIView):
     serializer_class = RequestSerializer
     permission_classes = (IsOwnerOrAuthentication,)
 
-# class TravelPriceView(APIView):
-#     def get_object(self , pk):
-#         try:
-#             return reqtaxi.objects.get(pk = pk)
-#         except  reqtaxi.DoesNotExist:
-#             raise Http404
-#     def get(self , request ):
-#         # queryset = self.get_object(pk)
-#         taxi = reqtaxi.objects.all()
-#         serializer = RequestListSerializer(taxi , many = True)
-#         return Response(data = serializer.data)
-#     def post(self , request):
-#         data = request.data
-#         serailizer = RequestSerializer(data=data)
-#         if serailizer.is_valid():
-#             serailizer.save()
-#         return Response(data = data)
+
+class ListTravelAddress(APIView):
+
+    permission_classes = (IsownerOrstaff ,)
+
+    def get_object(self , pk ,slug):
+        try:
+            return TravelAddress.objects.get(user__pk = pk , slug = slug)
+        except TravelAddress.DoesNotExist:
+            raise Http404
+    
+
+    def get(self , request ,pk ,slug):
+    
+        queryset = self.get_object(pk ,slug)
+        serializer = ListTravelAdressSerializer(queryset)
+
+        return Response(serializer.data , status = status.HTTP_200_OK)
+    def put(self , request , pk , slug):
+        serializer = UpdateTravelAddressSerializer(data = request.data)
+        if serializer.is_valid():
+            queryset = self.get_object(pk , slug)
+            queryset.name = serializer.validated_data.get('name')
+            queryset.Address = serializer.validated_data.get('Address')
+            queryset.save()
+            return Response({'msg':'Update Succesfull'} , status = status.HTTP_202_ACCEPTED)
+
+            
+class CreateTravelAddress(CreateAPIView):
+    queryset = TravelAddress.objects.all()
+    serializer_class = CreateTravelAdressSerializer
+    permission_classes = (IsownerOrstaff , )

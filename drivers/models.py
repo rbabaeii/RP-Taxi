@@ -10,3 +10,7 @@ class Driver_job(models.Model):
     body = models.ForeignKey(RequestCar , on_delete=models.CASCADE)
     time = models.DateTimeField( auto_now_add=timezone.now)
     finish = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = 'اطلاعات سفر ' 
+        verbose_name_plural = "سفر های رانندگان  "

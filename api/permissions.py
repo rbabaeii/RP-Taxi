@@ -24,3 +24,8 @@ class IsSuperUserOrAuthentication(BasePermission):
         ) 
 
 
+class IsownerOrstaff(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return bool(
+            obj.user.username == request.user.username
+        )

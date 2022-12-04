@@ -10,6 +10,7 @@ UserAdmin.fieldsets[2][1]['fields'] = (
                                         "is_active",
                                         "is_staff",
                                         "is_superuser",
+                                        "account_balance",
                                         "mellicode",
                                         "phone",
                                         "Address",

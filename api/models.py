@@ -1,5 +1,6 @@
 from django.db import models
 from Account.models import User
+from django.utils.text import slugify
 
 # Create your models here.
 class RequestCar(models.Model):
@@ -20,4 +21,26 @@ class RequestCar(models.Model):
     type_travel = models.CharField(verbose_name='نوع سفر',max_length=15,choices=CHOICES_TYPE , help_text='Insert type of travel')
 
     def __str__(self):
-        return f'{self.orig_addr } {self.dest_addr}  {self.type_travel} {str(self.travel_costs)}' 
+        return f'{self.orig_addr } {self.dest_addr}  {self.type_travel} {str(self.travel_costs)}'
+
+    class Meta:
+        verbose_name = 'درخواست ماشین' 
+        verbose_name_plural = "درخواست های ماشین"
+
+class TravelAddress(models.Model):
+    user = models.ForeignKey(User , on_delete = models.CASCADE)
+    name = models.CharField(max_length = 250 , verbose_name='نام محل' , unique = True) 
+    Address = models.CharField(max_length = 250 , verbose_name = 'آدرس')
+    slug = models.SlugField(null = True , blank = True )
+
+    def save(self, force_insert: bool = False , force_update: bool =False , using = None ,update_fields = None) -> None:
+        self.slug = slugify(self.name)
+        super(TravelAddress , self).save()
+
+    def __str__(self) -> str:
+        return f"username : {self.user.username}     Location : {self.name}"
+
+
+    class Meta:
+        verbose_name = ' آدرس های خاص' 
+        verbose_name_plural = "  آدرس های خاص"

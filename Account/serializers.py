@@ -2,8 +2,7 @@ from rest_framework import serializers
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from .models import User
 from allauth.account.adapter import get_adapter
-
-
+from api.models import RequestCar
 
 class CustomeRegisterSerilizer(RegisterSerializer):
     phone = serializers.CharField()
@@ -11,7 +10,7 @@ class CustomeRegisterSerilizer(RegisterSerializer):
     Age = serializers.IntegerField()
     gender = serializers.CharField()
     is_driver = serializers.BooleanField(default=False)
-    
+    mellicode = serializers.CharField()
     def get_cleaned_data(self):
         return {
             'username': self.validated_data.get('username', ''),
@@ -22,7 +21,7 @@ class CustomeRegisterSerilizer(RegisterSerializer):
             'Age': self.validated_data.get('Age'),
             'gender': self.validated_data.get('gender'),
             'is_driver': self.validated_data.get('is_driver'),
-            'mellicode' : self.validated_data.get('mellicode')
+            'mellicode' : self.validated_data.get('mellicode'),
         }
     def save(self,request):
         adapter = get_adapter()
@@ -42,3 +41,13 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
+
+class BalanceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('account_balance' ,)
+
+class PayTravelSerializer(serializers.ModelSerializer):
+    class Meta :
+        model = RequestCar
+        fields = ('travel_costs',)
