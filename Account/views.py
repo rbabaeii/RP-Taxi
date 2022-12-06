@@ -1,13 +1,10 @@
-from .serializers import UserSerializer , BalanceSerializer , PayTravelSerializer
+from .serializers import UserSerializer , BalanceSerializer , PayTravelSerializer , EditProfileSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.generics import ListCreateAPIView , RetrieveUpdateDestroyAPIView  
+from rest_framework.generics import ListCreateAPIView , RetrieveUpdateDestroyAPIView  , RetrieveUpdateAPIView
 from rest_framework.views import APIView
-from .permissions import Is_StaffOrAdminReadonly , IsSuperUser
-from rest_framework.viewsets import ModelViewSet
-from django.db import transaction
-from django.db.models import F
+from .permissions import Is_StaffOrAdminReadonly , IsSuperUser , Is_Owner
 from .models import User
 from api.models import RequestCar
 from django.http import Http404
@@ -53,3 +50,8 @@ class PayTravel(APIView):
             return Response({"Paymeny Succesfull Goodluck"} , status= status.HTTP_202_ACCEPTED)
         else:
             return Response({'You have not Enough Money Please Rechage your Account'} , status=status.HTTP_400_BAD_REQUEST)
+
+class EditProfile(RetrieveUpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = EditProfileSerializer
+    permission_classes = (Is_Owner ,)

@@ -51,3 +51,8 @@ class PayTravelSerializer(serializers.ModelSerializer):
     class Meta :
         model = RequestCar
         fields = ('travel_costs',)
+
+class EditProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('phone' , 'Address' , 'Age' , 'gender' , 'mellicode')
